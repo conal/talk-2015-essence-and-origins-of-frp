@@ -1,4 +1,4 @@
-## The essence and origins of functional reactive programming, or <br>How you could have invented FRP
+## The essence and origins of Functional Reactive Programming, or <br>How you could have invented FRP
 
 A talk for BayHac 2015 (June 12--14) and keynote at LambdaJam 2015 (July 15--16).
 
