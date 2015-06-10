@@ -1,0 +1,16 @@
+*~
+Junk*
+Old*
+Stuff
+Unused/
+
+*.aux
+*.log
+*.nav
+*.out
+*.pdf
+*.ptb
+*.snm
+*.toc
+
+you-could-have-invented-frp.tex
