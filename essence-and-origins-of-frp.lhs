@@ -56,12 +56,12 @@
 %include mine.fmt
 
 \title{The essence and origins of FRP}
-\subtitle{\emph{or}\\ How you could have invented \\ Functional Reactive Programming}
+% \subtitle{\emph{or}\\ How you could have invented \\ Functional Reactive Programming}
 \author{\href{http://conal.net}{Conal Elliott}}
 % \institute{\href{http://tabula.com/}{Tabula}}
 % Abbreviate date/venue to fit in infolines space
-% \date{June, 2015}
-\date{\emph{Draft of \today}}
+\date{June, 2015}
+% \date{\emph{Draft of \today}}
 
 \setlength{\itemsep}{2ex}
 \setlength{\parskip}{1ex}
