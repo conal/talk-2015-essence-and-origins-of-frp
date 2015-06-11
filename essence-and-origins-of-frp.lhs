@@ -438,6 +438,8 @@ Alternatively,
   Went for graphics.
 \item
   Did FP, program transformation, type theory.
+\item
+  Class in denotational semantics.
 \end{itemize}
 
 }
@@ -450,6 +452,7 @@ Alternatively,
   \begin{itemize}
    \item \emph{Functional animation}
    \item Streams of pictures
+   \item \emph{Mostly} elegant
   \end{itemize}
 \item John Reynolds' insight: continuous time.
   Roughly,\\[1.5ex]
@@ -472,7 +475,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   3D geometry etc as first-class immutable values.
 \item
-  Optimizing compiler via partial evaluation \& fusion.
+  Optimizing compiler via partial evaluation.
 \item
   For animation \& interaction, immutable functions of time.
 \item
@@ -521,8 +524,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   Paul Hudak suggested names ``Fran'' and then ``FRP''.
 \item
-  Very fast implementation via sprite engine.
-  (\href{http://conal.net/papers/padl99/}{paper})
+  Very fast implementation \href{http://conal.net/papers/padl99/}{via sprite engine}.
 \end{itemize}
 
 }
@@ -565,7 +567,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   ``Push'' is really blocked pull.
 \item
-  Uses LUB (basis of PL semantics).
+  Uses |lub| (basis of PL semantics).
 \item
   Implementation subtleties \& GHC RTS bugs. Didn't quite work.
   

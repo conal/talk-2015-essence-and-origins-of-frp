@@ -104,3 +104,4 @@
 %format ==> = "\Longrightarrow"
 
 %format :. = "\circ"
+%% %format lub = "\sqcup"

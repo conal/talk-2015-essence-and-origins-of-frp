@@ -24,7 +24,7 @@ clean:
 
 web: web-token
 
-STASH=conal@conal.net:/home/conal/web/talks
+STASH=conal@conal.net:/home/conal/web/talks/drafts
 web: web-token
 
 #web-token: $(TARG).pdf
