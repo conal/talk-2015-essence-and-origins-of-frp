@@ -118,7 +118,7 @@ More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
 
 \framet{Why continuous \& infinite (vs discrete/finite) time?}{
 \pause
-\begin{itemize}\parskip0.28ex
+\begin{itemize}\itemsep0.5ex
 \item Transformation flexibility with simple \& precise semantics
 \item Efficiency (adapative)
 \item Quality/accuracy
@@ -443,22 +443,35 @@ Alternatively,
 \end{center}
 }
 
-\framet{1983-1989 at CMU:}{
+\framet{1983--1989 at CMU}{
 
-\begin{itemize}
+\begin{itemize}\parskip2ex
 \item
   Went for graphics.
 \item
-  Did FP, program transformation, type theory, HOU.
+  Did FP, program transformation, type theory.
 \end{itemize}
 
 }
 
 \framet{1989 at CMU}{
 
-\begin{itemize}
+\begin{itemize}\parskip2ex
 \item
-  Kavi Arya's ``functional animation'' and John Reynolds insight.
+  Kavi Arya's visit
+  \begin{itemize}
+   \item ``Functional animation'':
+   \item Functional streams of pictures
+  \end{itemize}
+\item John Reynolds' insight: continuous time.
+  Roughly,\\[2ex]
+{
+ \parindent2ex
+ \small
+``You can think of sequences as functions from the natural numbers.\\
+Have you thought about functions from the reals instead?\\
+Doing so might help with the awkwardness of interpolation.''
+}
 \item
   Finished my dissertation anyway.
 \end{itemize}
@@ -514,7 +527,7 @@ Alternatively,
 
 \framet{1996--1999 at MSR: RBMH/Fran}{
 
-\begin{itemize}
+\begin{itemize}\parskip2ex
 \item
   Found Haskell: reborn as ``RBMH'' (research vehicle).
 \item
@@ -528,7 +541,7 @@ Alternatively,
 
 \framet{2000 at MSR: first push-based implementation}{
 
-\begin{itemize}
+\begin{itemize}\itemsep3ex
 \item
   Algebra of event listeners.
 \item Challenges:
@@ -537,10 +550,10 @@ Alternatively,
     Garbage collection \& dependency reversal.
   \item
     Determinacy of timing \& simultaneity.
+  \item
+    I doubt anyone has gotten correct.
  \end{itemize}
 \end{itemize}
-
-I don't think anyone has gotten correct.
 
 }
 
