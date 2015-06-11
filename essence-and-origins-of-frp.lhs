@@ -56,7 +56,7 @@
 %include mine.fmt
 
 \title{The essence and origins of FRP}
-% \subtitle{\emph{or}\\ How you could have invented \\ Functional Reactive Programming}
+\subtitle{\emph{or}\\ How you could have invented \\ Functional Reactive Programming}
 \author{\href{http://conal.net}{Conal Elliott}}
 % \institute{\href{http://tabula.com/}{Tabula}}
 % Abbreviate date/venue to fit in infolines space
@@ -70,9 +70,9 @@
 
 \nc\pitem{\pause \item}
 
-\nc\partframe[1]{
-\framet{}{\begin{center} \vspace{6ex} {\Huge #1} \end{center}}
-}
+\nc\partframe[1]{\framet{}{\begin{center} \vspace{6ex} {\Huge #1} \end{center}}}
+%\nc\partframe[1]{\framet{}{\begin{center} \huge \emph{\textcolor{blue}{#1}} \end{center}}}
+
 
 %%%%
 
@@ -103,7 +103,7 @@
 \begin{itemize}\itemsep2ex
   \item \emph{Continuous} time!
   (Natural \& composable.)
-\item Denotational design.
+\item Precise, simple denotation.
   (Elegant \& rigorous.)
 \end{itemize}
 {\parskip 3ex
@@ -114,7 +114,7 @@ Deterministic, continuous ``concurrency''.
 
 Warning: most modern ``FRP'' systems have neither property.
 
-More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
+% More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
 }
 }
 
@@ -148,15 +148,17 @@ Same issues as space, hence vector graphics.
 
 \framet{Semantics}{
 
-Central abstract type: |Behavior a|. A ``flow'' of values.
+Central abstract type: |Behavior a| --- a ``flow'' of values.
 \pause\\[5ex]
 
 Precise \& simple semantics:
 
-> meaning :: Behavior a -> (R -> a)
+> meaning :: Behavior a -> (T -> a)
 
+where |T = R| (reals).
 \pause\\[4ex]
-API and its specification follows mostly from this one choice.
+
+Much of API and its specification follows from this one choice.
 
 }
 
@@ -166,12 +168,12 @@ API and its specification follows mostly from this one choice.
 
 { \small
 
-> time       :: Behavior R
+> time       :: Behavior T
 > lift0      :: a -> Behavior a
 > lift1      :: (a -> b) -> Behavior a -> Behavior b
 > lift2      :: (a -> b -> c) -> Behavior a -> Behavior b -> Behavior c
-> timeTrans  :: Behavior a -> Behavior R -> Behavior a
-> integral   :: VS a => Behavior a -> R -> Behavior a
+> timeTrans  :: Behavior a -> Behavior T -> Behavior a
+> integral   :: VS a => Behavior a -> T -> Behavior a
 > NOTHING ...
 
 > instance Num a => Num (Behavior a) where ...
@@ -201,13 +203,13 @@ Reactivity later.
 
 \emph{Secondary} type:
 
-> meaning :: Event a -> [(R,a)]  -- non-decreasing times
+> meaning :: Event a -> [(T,a)]  -- non-decreasing times
 
 > never      :: Event a
-> once       :: R -> a -> Event a
+> once       :: T -> a -> Event a
 > (.|.)      :: Event a -> Event a -> Event a
 > (==>)      :: Event a -> (a -> b) -> Event b
-> predicate  :: Behavior Bool -> Time -> Event ()
+> predicate  :: Behavior Bool -> T -> Event ()
 > snapshot   :: Event a -> Behavior b -> Event (a,b)
 
 }
@@ -333,7 +335,8 @@ For instance,
 \framet{Semantic instances}{
 
 > instance Monoid a => Monoid (z -> a) where
->   f <> g = \ z -> f z <> g z
+>   mempty  = \ z -> mempty
+>   f <> g  = \ z -> f z <> g z
 
 > instance Functor ((->) z) where
 >   fmap g f = g . f
@@ -375,12 +378,67 @@ Likewise for |Functor|, |Monoid|, |Num|, etc.
 
 \vspace{1.5ex}\pause
 
-Note:
+Notes:
 \begin{itemize}
 \item Corresponds exactly to the original FRP denotation.
 \item Follows inevitably from semantic homomorphism principle.
+\item Laws hold for free (already paid for).
 \end{itemize}
 
+}
+
+\framet{Laws for free}{
+
+%% Semantic homomorphisms guarantee class laws. For `Monoid`,
+
+\begin{center}
+\fbox{\begin{minipage}[c]{0.4\textwidth}
+
+> meaning mempty    == mempty
+> meaning (a <> b)  == meaning a <> meaning b
+
+\end{minipage}}
+\begin{minipage}[c]{0.07\textwidth}\begin{center}$\Rightarrow$\end{center}\end{minipage}
+\fbox{\begin{minipage}[c]{0.45\textwidth}
+
+> a <> mempty    == a
+> mempty <> b    == b
+> a <> (b <> c)  == (a <> b) <> c
+
+\end{minipage}}
+\end{center}
+\vspace{-1ex}
+where equality is \emph{semantic}.
+\pause
+Proofs:
+\begin{center}
+\fbox{\begin{minipage}[c]{0.3\textwidth}
+
+>     meaning (a <> mempty)
+> ==  meaning a <> meaning mempty
+> ==  meaning a <> mempty
+> ==  meaning a
+
+\end{minipage}}
+\fbox{\begin{minipage}[c]{0.3\textwidth}
+
+>     meaning (mempty <> b)
+> ==  meaning mempty <> meaning b
+> ==  mempty <> meaning b
+> ==  meaning b
+
+\end{minipage}}
+\fbox{\begin{minipage}[c]{0.39\textwidth}
+
+>     meaning (a <> (b <> c))
+> ==  meaning a <> (meaning b <> meaning c)
+> ==  (meaning a <> meaning b) <> meaning c
+> ==  meaning ((a <> b) <> c)
+
+\end{minipage}}
+\end{center}
+
+Works for other classes as well.
 }
 
 \framet{Events}{
@@ -409,16 +467,18 @@ Alternatively,
 
 }
 
-\framet{Conclusions}{
+\framet{Conclusion}{
 
-\begin{itemize}
- \item FRP's two fundamental properties:
-   \begin{itemize}
-     \item Continuous time! (Natural \& composable.)
-     \item Denotational design. (Elegant \& rigorous.)
-   \end{itemize}\vspace{3ex}
- \item Semantic homomorphisms:
-   \begin{itemize}
+\begin{itemize}\itemsep2ex
+ \item Two fundamental properties:\\
+   \begin{itemize}\itemsep1ex
+     \item Continuous time. (Natural \& composable.)
+     \item Precise, simple denotation. (Elegant \& rigorous.)\\[1ex]
+   \end{itemize}
+
+   \emph{Warning:} most recent ``FRP'' systems lack both.
+ \pitem Semantic homomorphisms:
+   \begin{itemize}\itemsep1ex
      \item Mine semantic model for API.
      \item API semantics inevitable from homomorphisms.
      \item Laws hold for free (already paid for).
@@ -435,9 +495,9 @@ Alternatively,
 
 \begin{itemize}\itemsep2ex
 \item
-  Went for graphics.
+  I went for graphics.
 \item
-  Did FP, program transformation, type theory.
+  Did program transformation, FP, type theory.
 \item
   Class in denotational semantics.
 \end{itemize}
@@ -452,7 +512,7 @@ Alternatively,
   \begin{itemize}
    \item \emph{Functional animation}
    \item Streams of pictures
-   \item \emph{Mostly} elegant
+   \item Mostly elegant
   \end{itemize}
 \item John Reynolds' insight: continuous time.
   Roughly,\\[1.5ex]
@@ -471,7 +531,7 @@ Doing so might help with the awkwardness of interpolation.''
 
 \framet{1990--93 at Sun: TBAG}{
 
-\begin{itemize}\itemsep1ex
+\begin{itemize}\itemsep1.5ex
 \item
   3D geometry etc as first-class immutable values.
 \item
@@ -479,7 +539,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   For animation \& interaction, immutable functions of time.
 \item
-  Multi-way constraints, with time-functions for variables.
+  Multi-way constraints on time-functions.
   % Off-the-shelf constraint solvers (DeltaBlue \& SkyBlue from UW).
 \item
   Differentiation, integration and ODEs specified via |derivative|.
@@ -494,19 +554,19 @@ Doing so might help with the awkwardness of interpolation.''
 
 }
 
-\framet{1994--1996 at Microsoft Research: RBML/ActiveVRML}{
+\framet{1994--1996 at MSR: RBML/ActiveVRML}{
 
-\begin{itemize}
+\begin{itemize}\itemsep2ex
 \item
   Programming model \& fast implementation for new 3D hardware.
 \item
-  Goal: TBAG + denotative/functional reactivity.
-\item
-  Drop constraints ``at first''.
+  TBAG + denotative/functional reactivity.
 \item
   Add event algebra to behavior algebra.
 \item
   Reactivity via behavior-valued events.
+\item
+  Drop multi-way constraints ``at first''.
 \item
   Started in ML as ``RBML''.
 \item
@@ -525,6 +585,8 @@ Doing so might help with the awkwardness of interpolation.''
   Paul Hudak suggested names ``Fran'' and then ``FRP''.
 \item
   Very fast implementation \href{http://conal.net/papers/padl99/}{via sprite engine}.
+\item
+  John Hughes suggested using |Arrow|.
 \end{itemize}
 
 }
@@ -532,10 +594,9 @@ Doing so might help with the awkwardness of interpolation.''
 \framet{2000 at MSR: first push-based implementation}{
 
 \begin{itemize}\itemsep3ex
-\item
-  Algebra of event listeners.
+\item Algebra of imperative event listeners.
 \item Challenges:
- \begin{itemize}
+ \begin{itemize}\itemsep2ex
   \item
     Garbage collection \& dependency reversal.
   \item
@@ -549,29 +610,40 @@ Doing so might help with the awkwardness of interpolation.''
 
 \framet{2009: \href{http://conal.net/papers/push-pull-frp/}{Push-pull FRP}}{
 
-\begin{itemize}
+\begin{itemize}\itemsep1.5ex
+\item Minimal computation, low latency, \emph{provably correct}.
+\item Push for reactivity and pull for continuous phases.
+\item ``Push'' is really blocked pull.
 \item
   Modernized API:
   \begin{itemize}
-  \item
-    Standard abstractions.
-  \item
-    Semantics as homomorphisms.
-  \item
-    Laws for free.
+  \item Standard abstractions.
+  \item Semantics as homomorphisms.
+  \item Laws for free.
   \end{itemize}
 \item
-  Push for reactivity and pull for continuous phases.
-\item
   Reactive normal form, via equational properties (denotation!).
-\item
-  ``Push'' is really blocked pull.
 \item
   Uses |lub| (basis of PL semantics).
 \item
   Implementation subtleties \& GHC RTS bugs. Didn't quite work.
-  
 \end{itemize}
+
+}
+
+\out{
+
+\framet{2012--now: ``FRP'' diffusion}{
+
+\begin{itemize}
+\item ``FRP'' systems appear that lack both fundamental properties:
+  \begin{itemize}
+   \item Elm
+   \item Bacon
+  \end{itemize}
+\end{itemize}
+
+}
 
 }
 
