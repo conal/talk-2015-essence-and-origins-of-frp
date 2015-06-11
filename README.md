@@ -1,6 +1,7 @@
 ## How you could have invented Functional Reactive Programming
 
-A talk for BayHac 2015 (June 12--14) and keynote at LambdaJam 2015 (July 15--16) about the essence and origins of FRP.
+A talk for keynote at LambdaJam 2015 (July 15--16) about the essence and origins of FRP.
+I might preview the talk at BayHac 2015 (June 12--14).
 
 ### Abstract
 

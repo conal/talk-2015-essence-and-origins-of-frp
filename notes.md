@@ -8,53 +8,161 @@
 
 [*From Functional Animation to Sprite-Based Display*]: http://conal.net/papers/padl99/ "paper by Conal Elliott (1999)"
 
-I'm working on notes for a talk at BayHac 2015 (June 12--14) and keynote at LambdaJam 2015 (July 15--16).
+[*Why Functional Programming Matters*]: http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html "Paper by John Hughes (1984)"
 
-What do I want to get across?
+These notes are for a talk at BayHac 2015 (June 12--14) and keynote at LambdaJam 2015 (July 15--16).
 
-*   History:
-    *   1983-1989 at CMU:
-        *   Went for graphics.
-        *   Did FP, program transformation, type theory, HOU.
-    *   1989 at CMU:
-        *   Kavi Arya's "functional animation" and John Reynolds insight.
-        *   Finished my dissertation anyway.
-    *   1990-93 at Sun: TBAG
-        *   3D geometry etc as first-class immutable values.
-        *   In Common Lisp, C++, Scheme.
-        *   Optimizing compiler to rendering code via partial evaluation & fusion.
-        *   For animation & interaction, immutable functions of time to geometry etc.
-        *   Multi-way constraints, with time-functions for variables.
-            Off-the-shelf constraint solvers (DeltaBlue & SkyBlue from UW).
-        *   Differentiation, integration and ODEs specified via `deriv`.
-            Adaptive fifth-order Runge-Kutta ODE solver for speed & accuracy.
-        *   Efficient multi-user distributed execution for free.
-        *   Reactivity via constraint `assert`/`retract` (high-level but imperative).
-        *   C++ version: simpler (no compilation).
-    *   1994-1999 at Microsoft Research: RBML/ActiveVRML, RBMH/Fran
-        *   Design programming model and fast implementation for new 3D architecture (Talisman).
-        *   Research goal: TBAG + denotative/functional reactivity.
-        *   Drop constraints "at first".
-        *   Add event algebra to behavior algebra.
-        *   Reactivity via behavior-valued events.
-        *   Started in ML as "RBML".
-        *   Rebranded to "[ActiveVRML][*A Brief Introduction to ActiveVRML*]", then "[DirectAnimation](http://www.sworks.com/keng/da.html)".
-        *   Found Haskell: reborn as RBMH (research vehicle).
-        *   Paul Hudak (RIP) suggested names "Fran" and then "FRP".
-        *   Very fast implementation via sprite engine. ([paper][*From Functional Animation to Sprite-Based Display*])
-    *   2000 at MSR: attempted first push-based implementation
-        *   Garbage collection problems.
-        *   Determinacy of timing & simultaneity.
-        *   Algebra of event listeners.
-        *   I don't think *anyone* has gotten correct.
-    *   2009: Push-pull FRP
-        *   Another attempt at push for reactivity and pull for continuous phases.
-        *   Reactive normal form
-        *   Block 
+## Outline
 
-## History
+### History
 
+*   1983-1989 at CMU:
+    *   Went for graphics.
+    *   Did FP, program transformation, type theory, HOU.
+*   1989 at CMU:
+    *   Kavi Arya's "functional animation" and John Reynolds insight.
+    *   Finished my dissertation anyway.
+*   1990-93 at Sun: TBAG
+    *   3D geometry etc as first-class immutable values.
+    *   In Common Lisp, C++, Scheme.
+    *   Optimizing compiler to rendering code via partial evaluation & fusion.
+    *   For animation & interaction, immutable functions of time to geometry etc.
+    *   Multi-way constraints, with time-functions for variables.
+        Off-the-shelf constraint solvers (DeltaBlue & SkyBlue from UW).
+    *   Differentiation, integration and ODEs specified via `deriv`.
+        Adaptive fifth-order Runge-Kutta ODE solver for speed & accuracy.
+    *   Efficient multi-user distributed execution for free.
+    *   Reactivity via constraint `assert`/`retract` (high-level but imperative).
+    *   C++ version: simpler (no compilation).
+*   1994-1999 at Microsoft Research: RBML/ActiveVRML, RBMH/Fran
+    *   Design programming model and fast implementation for new 3D architecture (Talisman).
+    *   Research goal: TBAG + denotative/functional reactivity.
+    *   Drop constraints "at first".
+    *   Add event algebra to behavior algebra.
+    *   Reactivity via behavior-valued events.
+    *   Started in ML as "RBML".
+    *   Rebranded to "[ActiveVRML][*A Brief Introduction to ActiveVRML*]", then "[DirectAnimation](http://www.sworks.com/keng/da.html)".
+    *   Found Haskell: reborn as RBMH (research vehicle).
+    *   Paul Hudak (RIP) suggested names "Fran" and then "FRP".
+    *   Very fast implementation via sprite engine. ([paper][*From Functional Animation to Sprite-Based Display*])
+*   2000 at MSR: attempted first push-based implementation
+    *   Garbage collection problems.
+    *   Determinacy of timing & simultaneity.
+    *   Algebra of event listeners.
+    *   I don't think *anyone* has gotten correct.
+*   2009: [Push-pull FRP][*Push-pull functional reactive programming*]
+    *   Modernized API:
+        *   Standard abstractions.
+        *   Semantics as homomorphisms.
+        *   Laws for free.
+    *   Another attempt at push for reactivity and pull for continuous phases.
+    *   Reactive normal form, via equational properties (denotation!).
+    *   "Push" is really blocked pull.
+    *   Uses LUB (basis of PL semantics).
+    *   Implementation subtleties & GHC RTS bugs.
+        Didn't quite work.
 
+## What is FRP?
+
+Two essential properties:
+
+*   *Continuous* time! (Natural & composable.)
+*   Denotational design. (Elegant & rigorous.)
+
+Deterministic, continuous "concurrency".
+
+More aptly, *"Denotative continuous-time programming"* (DCTP).
+
+Warning: many modern "FRP" systems have neither property.
+
+## Why continuous & infinite (vs discrete/finite) time?
+
+*From LambdaJam 2014 talk.*
+
+## Semantics
+
+Central abstract type: `Behavior a`.
+A "flow" of values.
+
+Precise & simple semantics:
+
+> meaning :: Behavior a -> (R -> a)
+
+API and its specification follows mostly from this one choice.
+
+## API
+
+Note *semantic* instances:
+
+> instance Functor     ((->) t) where ...
+> instance Applicative ((->) t) where ...
+> instance Monad       ((->) t) where ...
+>
+> instance Monoid      ((->) t) where ...
+> instance Num         ((->) t) where ...
+> ...
+
+API follows in "precise analogy" from semantics.
+
+## Homomorphisms
+
+A "homomorphism" $h$ is a function that preserves an algebraic structure.
+For instance, for `Monoid`:
+
+> h mempty == mempty
+> h (as <> bs) == h as <> h bs
+
+For instance,
+
+> lenS :: [a] -> Sum Int
+> lenS = Sum . length
+
+> log' :: Product R -> Sum R
+> log' = Sum . log . getProduct
+
+Homomorphism proofs:
+
+>   lenS mempty
+> == Sum (length mempty)
+> == Sum (length [])
+> == Sum 0
+> == mempty
+
+>   lenS (as <> bs)
+> == Sum (length (as <> bs))
+> == Sum (length (as ++ bs))
+> == Sum (length as + length bs)
+> == Sum (length as) <> Sum (length bs)
+
+## Specification by semantic homomorphism
+
+Functor homomorphism (naturality):
+
+> h (f <$> as) == f <$> h as
+
+i.e.,
+
+> h . fmap f == fmap f . h
+
+## Events
+
+> meaning :: Event a -> [(R,a)]
+
+Stylistic tweak for homomorphisms:
+
+> meaning :: Event a -> ([] :. (,) R)
+
+or
+
+> type Event = Behavior :. []  -- discretely non-empty
+
+## Reactivity
+
+Events generate new behavior phases:
+
+> switcher ::  Behavior a -> Event (Behavior a) -> Behavior a
+
+----
 
 ## Misc
 
@@ -66,7 +174,7 @@ What do I want to get across?
         *   Naturalness
         *   Transformation flexibility with simple & precise semantics
         *   Modularity/composability, as with pure, non-strict functional programming.
-            See [*Why Functional Programming Matters*](http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html).
+            See [*Why Functional Programming Matters*].
         *   Efficiency (adapative)
         *   Quality/accuracy
         *   Integration and differentiation: natural, accurate, efficient.

@@ -1,0 +1,106 @@
+%% Misc lhs2TeX directives
+
+%format Unit = " \mathbf{1} "
+%% %format Unit = " \mathbbm{1} "
+%format :* = " \times "
+%format :+ = " + "
+
+%% %format <> = " \mathbin{\oplus} "
+%% %format `mappend` = " \mathbin{\oplus} "
+%format <> = " \diamond "
+%format `mappend` = " \diamond "
+%format mempty = epsilon
+
+%% %format <> = " \mathbin{<>} "
+
+%format <$> = "\mathbin{<\!\!\!\$\!\!\!>}"
+
+% Got from Andres L:
+\newcommand{\calculationcomments}{%
+  \let\onelinecomment=\onelinecommentchars
+  \def\commentbegin{\quad\{ }%
+  \def\commentend{\}}%
+}
+\calculationcomments
+
+%format NOTHING = "{}"
+
+%% hack: add missing space, e.g., before "{" in data type decl
+%format SPACE = "\ {}"
+
+%format PAUSE = "\pause "
+
+%format BACK = "{\Back}"
+%format BACKQ a = "{\Back}"
+%format PBACK = "\pause\Back"
+
+% \renewcommand{\onelinecomment}{\it}
+
+%% %format (meaning (a)) = "\db{" a "}"
+%% %format meaning' (a) x = "\db{" a "}" x
+
+%format meaning  = mu
+%format meaning' = mu
+%format meaningInv = mu "^{-1}"
+
+%% %format Meaning = "\Mu"
+%% %format meaning = "\mu"
+
+%% %format Lin1 = Lin "_1"
+
+%% %format idL = "\Varid{id_L}"
+%format idL = "\widehat{" id "}"
+
+%format @. = "\mathbin{\hat{\circ}}"
+%format @* = "\mathbin{\times}"
+
+%format NO = "{}"
+
+%format -* = "\multimap"
+
+%format :-* = "\mathbin{:"-*"}"
+
+%% %format :-* = "\mathbin{\mathtt{:\!\!-\!*}}"
+
+
+%format Lin = "(":-*")"
+
+%format :&& = "\mathbin{:\!"&&&"}"
+%format :|| = "\mathbin{:\!"|||"}"
+
+%format *** = "\mathbin{\times}"
+%format &&& = "\mathbin{\smalltriangleup}"
+%format ||| = "\mathbin{\smalltriangledown}"
+
+%% %format *** = "\symThree{*}"
+%% %format &&& = "\symThree{\&}"
+%% %format ||| = "\symThree{|}"
+
+%format Prod k a b = a "\times_{" k "}" b
+%format Coprod k a b = a "+_{" k "}" b
+
+%% %format T = "{\cal T}"
+%% %format T = "{\cal R}"
+%format T = "\mathbb{R}"
+
+%format R2 = "\mathbb{R}^2"
+
+%format <$> = "\mathbin{<\!\!\!\$\!\!\!>}"
+%format <*> = "\mathbin{<\!\!\!*\!\!\!>}"
+
+%format :->: = "\twoheadrightarrow"
+%format <== = "\Leftarrow"
+
+%format liftA2 = "\Varid{liftA_2}"
+%format liftA3 = "\Varid{liftA_3}"
+%format liftA4 = "\Varid{liftA_4}"
+
+%format lift0 = "\Varid{lift_0}"
+%format lift1 = "\Varid{lift_1}"
+%format lift2 = "\Varid{lift_2}"
+%format lift3 = "\Varid{lift_3}"
+%format lift4 = "\Varid{lift_4}"
+
+%format ==> = "\Longrightarrow"
+
+%format :. = "\circ"
