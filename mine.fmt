@@ -81,7 +81,9 @@
 
 %% %format T = "{\cal T}"
 %% %format T = "{\cal R}"
-%format T = "\mathbb{R}"
+
+%% %format T = "\mathbb{T}"
+%% %format R = "\mathbb{R}"
 
 %format R2 = "\mathbb{R}^2"
 
