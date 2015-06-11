@@ -70,6 +70,10 @@
 
 \nc\pitem{\pause \item}
 
+\nc\partframe[1]{
+\framet{}{\begin{center} \vspace{6ex} {\Huge #1} \end{center}}
+}
+
 %%%%
 
 % \setbeameroption{show notes} % un-comment to see the notes
@@ -93,12 +97,10 @@
 \frame{\titlepage}
 
 
-\framet{What is FRP?}{
+\partframe{What is FRP?}
 
-\pause
-
-Two fundamental properties:
-\begin{itemize}
+\framet{FRP's two fundamental properties}{
+\begin{itemize}\itemsep2ex
   \item \emph{Continuous} time!
   (Natural \& composable.)
 \item Denotational design.
@@ -118,7 +120,7 @@ More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
 
 \framet{Why continuous \& infinite (vs discrete/finite) time?}{
 \pause
-\begin{itemize}\itemsep0.5ex
+\begin{itemize}\itemsep0.3ex
 \item Transformation flexibility with simple \& precise semantics
 \item Efficiency (adapative)
 \item Quality/accuracy
@@ -133,11 +135,13 @@ More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
 \item Reconcile differing input sampling rates.
 \end{itemize}
 
+\vspace{-1ex}
+
 \pause
 Same issues as space, hence vector graphics.
 
 \pause
-Principle: approximations/prunings compose badly, so postpone.
+\emph{Principle:} Approximations/prunings compose badly, so postpone.
 
 %% \item Strengthen induction hypothesis
 }
@@ -156,14 +160,7 @@ API and its specification follows mostly from this one choice.
 
 }
 
-\framet{}{
-
-\begin{center}
-\vspace{6ex}
-{\Huge Original presentation}
-\end{center}
-
-}
+\partframe{Original formulation}
 
 \framet{API}{
 
@@ -233,14 +230,7 @@ Question: Can occurrences be extracted (``|changes|'')?
 
 }
 
-\framet{}{
-
-\begin{center}
-\vspace{6ex}
-{\Huge Modernized presentation}
-\end{center}
-
-}
+\partframe{Modernized formulation}
 
 \framet{API}{
 
@@ -255,23 +245,23 @@ Replace several operations with standard abstractions:
 
 }
 
-\framet{Semantics}{
+\framet{Semantic instances}{
 
-Consider \emph{semantic} instances:
-
-> instance Functor      ((->) t) where ...
-> instance Applicative  ((->) t) where ...
->
-> instance Monoid       ((->) t) where ...
-> instance Num          ((->) t) where ...
+> instance Functor      ((->) z) where ...
+> instance Applicative  ((->) z) where ...
+> SPACE
+> instance Monoid  a => Monoid  (z -> a) where ...
+> instance Num     a => Num     (z -> a) where ...
 > ...
 
-The instances follow in ``precise analogy'' from semantics.
+\ 
+
+The |Behavior| instances follow in ``precise analogy''.
 }
 
 \framet{Homomorphisms}{
 
-A ``homomorphism'' $h$ is a function that preserves an algebraic structure.
+A ``homomorphism'' $h$ is a function that preserves (distributes over) an algebraic structure.
 For instance, for \texttt{Monoid}:\\[2ex]
 
 > h mempty      == mempty
@@ -315,12 +305,12 @@ Note that:
 
 |Functor|:
 
-> h (fmap f im) == fmap f (h im)
+> h (fmap f xs) == fmap f (h xs)
 
 |Applicative|:
 
-> h (pure a)       == pure a
-> h (imf <*> imx)  == h imf <*> h imx
+> h (pure a)     == pure a
+> h (fs <*> xs)  == h fs <*> h xs
 
 |Monad|:
 
@@ -407,6 +397,9 @@ Derived instances:
 >   mempty = Event (pure mempty)
 >   Event u <> Event v = Event (liftA2 (<>) u v)
 
+> instance Functor Event where
+>   fmap f (Event b) = Event (fmap (fmap f) b)
+
 \ \\[3ex]
 
 \pause
@@ -436,16 +429,11 @@ Alternatively,
 \end{itemize}
 }
 
-\framet{}{
-\begin{center}
-\vspace{6ex}
-{\Huge History}
-\end{center}
-}
+\partframe{History}
 
 \framet{1983--1989 at CMU}{
 
-\begin{itemize}\parskip2ex
+\begin{itemize}\itemsep2ex
 \item
   Went for graphics.
 \item
@@ -456,15 +444,15 @@ Alternatively,
 
 \framet{1989 at CMU}{
 
-\begin{itemize}\parskip2ex
+\begin{itemize}\itemsep2ex
 \item
   Kavi Arya's visit
   \begin{itemize}
-   \item ``Functional animation'':
-   \item Functional streams of pictures
+   \item \emph{Functional animation}
+   \item Streams of pictures
   \end{itemize}
 \item John Reynolds' insight: continuous time.
-  Roughly,\\[2ex]
+  Roughly,\\[1.5ex]
 {
  \parindent2ex
  \small
@@ -480,7 +468,7 @@ Doing so might help with the awkwardness of interpolation.''
 
 \framet{1990--93 at Sun: TBAG}{
 
-\begin{itemize}\parskip1ex
+\begin{itemize}\itemsep1ex
 \item
   3D geometry etc as first-class immutable values.
 \item
@@ -527,7 +515,7 @@ Doing so might help with the awkwardness of interpolation.''
 
 \framet{1996--1999 at MSR: RBMH/Fran}{
 
-\begin{itemize}\parskip2ex
+\begin{itemize}\itemsep2ex
 \item
   Found Haskell: reborn as ``RBMH'' (research vehicle).
 \item
@@ -563,7 +551,6 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   Modernized API:
   \begin{itemize}
-  \itemsep1pt\parskip0pt\parsep0pt
   \item
     Standard abstractions.
   \item
