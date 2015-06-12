@@ -645,7 +645,7 @@ Doing so might help with the awkwardness of interpolation.''
 \begin{itemize}\itemsep2ex
 \item Paul Hudak visited MSR in 1996 or so and saw RBMH.
 \item Encouraged me to publish and suggested collaboration.
-\item Proposed ``Fran'' and then ``FRP''.
+\item Proposed names ``Fran'' \& ``FRP''.
 \item Many FRP-based papers and theses, drawing much attention.
 \end{itemize}
 \end{minipage}
