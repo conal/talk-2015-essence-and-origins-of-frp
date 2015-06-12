@@ -22,6 +22,7 @@
 \usepackage{color}
 
 \definecolor{linkColor}{rgb}{0.62,0,0}
+\definecolor{partColor}{rgb}{0,0,0.8}
 
 \hypersetup{colorlinks=true,urlcolor=linkColor}
 
@@ -70,7 +71,7 @@
 
 \nc\pitem{\pause \item}
 
-\nc\partframe[1]{\framet{}{\begin{center} \vspace{6ex} {\Huge #1} \end{center}}}
+\nc\partframe[1]{\framet{}{\begin{center} \vspace{6ex} {\Huge \textcolor{partColor}{#1}} \end{center}}}
 %\nc\partframe[1]{\framet{}{\begin{center} \huge \emph{\textcolor{blue}{#1}} \end{center}}}
 
 
@@ -101,7 +102,7 @@
 
 \framet{FRP's two fundamental properties}{
 \begin{itemize}\itemsep2ex
-  \item \emph{Continuous} time!
+  \item \emph{Continuous} time.
   (Natural \& composable.)
 \item Precise, simple denotation.
   (Elegant \& rigorous.)
@@ -138,7 +139,7 @@ Warning: most modern ``FRP'' systems have neither property.
 \vspace{-1ex}
 
 \pause
-Same issues as space, hence vector graphics.
+Same issues as for space, hence vector graphics.
 
 \pause
 \emph{Principle:} Approximations/prunings compose badly, so postpone.
@@ -218,12 +219,19 @@ Reactivity later.
 
 \emph{Reactive} behaviors are defined piecewise, via events.\hspace{-3pt}\pause:
 
-\vspace{4ex}
+% \vspace{2ex}
 
 > switcher :: Behavior a -> Event (Behavior a) -> Behavior a
 
 \pause
-\\[4ex]
+Semantics:
+
+> meaning (b0 `switcher` e) t = meaning (last (b0 : before (meaning e) t)) t
+> SPACE
+> before :: [(T,a)] -> T -> [a]
+> before os t  = [a | (ta,a) <- os, ta < t]
+
+\pause \\
 \out{
 Event occurrences \emph{cannot} be extracted.
 (No |changes|/|updates|.)
@@ -238,12 +246,14 @@ Question: Can occurrences be extracted (``|changes|'')?
 
 Replace several operations with standard abstractions:
 
-> instance Functor Behavior
-> instance Applicative Behavior
-> instance Monoid a => Monoid (Behavior a)
+> instance Functor Behavior where ...
+> instance Applicative Behavior where ...
+> instance Monoid a => Monoid (Behavior a) where ...
 
-> instance Functor Event
-> instance Monoid a => Monoid (Event a)
+> instance Functor Event where ...
+> instance Monoid a => Monoid (Event a) where ...
+
+Less learning, more leverage.
 
 }
 
@@ -480,7 +490,7 @@ Alternatively,
  \pitem Semantic homomorphisms:
    \begin{itemize}\itemsep1ex
      \item Mine semantic model for API.
-     \item API semantics inevitable from homomorphisms.
+     \item Inevitable API semantics (minimize invention).
      \item Laws hold for free (already paid for).
      \item No abstraction leaks.
      \item Matches original FRP semantics.
@@ -582,8 +592,6 @@ Doing so might help with the awkwardness of interpolation.''
 \item
   Found Haskell: reborn as ``RBMH'' (research vehicle).
 \item
-  Paul Hudak suggested names ``Fran'' and then ``FRP''.
-\item
   Very fast implementation \href{http://conal.net/papers/padl99/}{via sprite engine}.
 \item
   John Hughes suggested using |Arrow|.
@@ -591,9 +599,9 @@ Doing so might help with the awkwardness of interpolation.''
 
 }
 
-\framet{2000 at MSR: first push-based implementation}{
+\framet{2000 at MSR: first try at push-based implementation}{
 
-\begin{itemize}\itemsep3ex
+\begin{itemize}\parskip2ex
 \item Algebra of imperative event listeners.
 \item Challenges:
  \begin{itemize}\itemsep2ex
@@ -629,6 +637,24 @@ Doing so might help with the awkwardness of interpolation.''
   Implementation subtleties \& GHC RTS bugs. Didn't quite work.
 \end{itemize}
 
+}
+
+\framet{1997--2014: Paul Hudak / Yale}{
+
+\begin{minipage}[c]{0.6\textwidth}
+\begin{itemize}\itemsep2ex
+\item Paul Hudak visited MSR in 1996 or so and saw RBMH.
+\item Encouraged me to publish and suggested collaboration.
+\item Proposed ``Fran'' and then ``FRP''.
+\item Many FRP-based papers and theses, drawing much attention.
+\end{itemize}
+\end{minipage}
+\begin{minipage}[c]{1.8in}
+\begin{center}
+\wpicture{1.7in}{paul-hudak}\\
+{\small July 15, 1952 -- April 29, 2015}
+\end{center}
+\end{minipage}
 }
 
 \out{

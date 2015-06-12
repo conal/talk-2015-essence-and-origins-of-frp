@@ -107,3 +107,6 @@
 
 %format :. = "\circ"
 %% %format lub = "\sqcup"
+
+%format ta = "t_a"
+%format b0
