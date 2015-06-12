@@ -200,6 +200,21 @@ Reactivity later.
 
 }
 
+\framet{Semantics}{
+
+> meaning time               = id
+> meaning (lift0 a)          = const a
+> meaning (lift1 f xs)       = f . meaning xs
+> meaning (lift2 f xs ys)    = liftA2 f (meaning xs) (meaning ys)
+> meaning (timeTrans xs tt)  = meaning xs . meaning tt
+
+> instance Num a => Num (Behavior a) where
+>    fromInteger  = lift0 . fromInteger
+>    (+)          = lift2 (+)
+>    ...
+
+}
+
 \framet{Events}{
 
 \emph{Secondary} type:
