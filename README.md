@@ -1,7 +1,7 @@
 ## The essence and origins of FRP
 
 A keynote talk for LambdaJam 2015 (July 15--16).
-I might preview the talk at BayHac 2015 (June 12--14).
+Previewed at BayHac 2015 (June 12--14).
 
 ### Abstract
 
