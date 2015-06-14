@@ -61,7 +61,7 @@
 \author{\href{http://conal.net}{Conal Elliott}}
 % \institute{\href{http://tabula.com/}{Tabula}}
 % Abbreviate date/venue to fit in infolines space
-\date{June 13, 2015 (preview)}
+\date{June 13, 2015 (draft)}
 % \date{\emph{Draft of \today}}
 
 \setlength{\itemsep}{2ex}
@@ -123,8 +123,8 @@ Warning: most modern ``FRP'' systems have neither property.
 \pause
 \begin{itemize}\itemsep0.3ex
 \item Transformation flexibility with simple \& precise semantics
-\item Efficiency (adapative)
 \item Quality/accuracy
+\item Efficiency (adapative)
 \item Modularity/composability:
   \begin{itemize}
   \item Fewer assumptions, more uses (resolution-independence).
@@ -328,7 +328,7 @@ Note that:
 }
 }
 
-\framet{More homomorphisms}{
+\framet{More homomorphism properties}{
 
 |Functor|:
 
