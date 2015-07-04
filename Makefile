@@ -27,7 +27,6 @@ web: web-token
 STASH=conal@conal.net:/home/conal/web/talks
 web: web-token
 
-#web-token: $(TARG).pdf
 web-token: $(TARG).pdf
-	scp $? $(STASH)
+	scp $? $(STASH)/$(TARG)-bayhac-2015.pdf
 	touch $@

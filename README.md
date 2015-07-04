@@ -3,7 +3,7 @@
 A keynote talk for [LambdaJam](lambdajam.com) 2015 (July 15--16).
 Previewed at [BayHac](http://bayhac.org/) 2015 (June 12--14).
 
-You can find [the slides (PDF)](http://conal.net/talks/essence-and-origins-of-frp.pdf) in [my talks folder](http://conal.net/talks/).
+You can find [the slides (PDF)](http://conal.net/talks/essence-and-origins-of-frp-bayhac-2015.pdf) in [my talks folder](http://conal.net/talks/).
 
 
 ### Abstract
