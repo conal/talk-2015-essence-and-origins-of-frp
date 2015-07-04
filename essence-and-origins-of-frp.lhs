@@ -61,7 +61,7 @@
 \author{\href{http://conal.net}{Conal Elliott}}
 % \institute{\href{http://tabula.com/}{Tabula}}
 % Abbreviate date/venue to fit in infolines space
-\date{June 13, 2015 (draft)}
+\date{June 2015 / BayHac}
 % \date{\emph{Draft of \today}}
 
 \setlength{\itemsep}{2ex}
