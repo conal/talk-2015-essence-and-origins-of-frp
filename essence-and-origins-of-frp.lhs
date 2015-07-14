@@ -291,7 +291,7 @@ Event occurrences \emph{cannot} be extracted.
 % \pause \\ Question: Can occurrences be extracted (``|changes|'')?
 }
 
-\partframe{Modernized formulation \\[3ex] (teaser)}
+\partframe{A more elegant specification \\[1.5ex] for FRP (teaser)}
 
 \framet{API}{
 
