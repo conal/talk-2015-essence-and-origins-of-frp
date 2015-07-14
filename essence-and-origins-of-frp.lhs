@@ -4,7 +4,7 @@
 
 % Presentation
 \documentclass{beamer}
-% \documentclass[handout]{beamer}
+%\documentclass[handout]{beamer}
 
 %% % Printed, 2-up
 %% \documentclass[serif,handout]{beamer}
@@ -21,7 +21,8 @@
 \usepackage{hyperref}
 \usepackage{color}
 
-\definecolor{linkColor}{rgb}{0.62,0,0}
+% \definecolor{linkColor}{rgb}{0.62,0,0}
+\definecolor{linkColor}{rgb}{0,0.42,0.3}
 \definecolor{partColor}{rgb}{0,0,0.8}
 
 \hypersetup{colorlinks=true,urlcolor=linkColor}
@@ -41,6 +42,7 @@
 \usepackage{mathabx}
 \usepackage{setspace}
 \usepackage{enumerate}
+\usepackage{tikzsymbols}
 
 \useinnertheme[shadow]{rounded}
 % \useoutertheme{default}
@@ -57,22 +59,18 @@
 %include mine.fmt
 
 \title{The essence and origins of FRP}
-% \subtitle{\emph{or}\\ How you could have invented \\ Functional Reactive Programming}
+\subtitle{\emph{or}\\[1.5ex] How you could have invented \\ Functional Reactive Programming}
 \author{\href{http://conal.net}{Conal Elliott}}
 % \institute{\href{http://tabula.com/}{Tabula}}
 % Abbreviate date/venue to fit in infolines space
-\date{June 2015 / BayHac}
+% \date{June 2015 / BayHac}
+\date{LambdaJam 2015}
 % \date{\emph{Draft of \today}}
 
 \setlength{\itemsep}{2ex}
 \setlength{\parskip}{1ex}
 
 % \setlength{\blanklineskip}{1.5ex}
-
-\nc\pitem{\pause \item}
-
-\nc\partframe[1]{\framet{}{\begin{center} \vspace{6ex} {\Huge \textcolor{partColor}{#1}} \end{center}}}
-%\nc\partframe[1]{\framet{}{\begin{center} \huge \emph{\textcolor{blue}{#1}} \end{center}}}
 
 
 %%%%
@@ -83,68 +81,103 @@
 
 \begin{document}
 
-\rnc\quote[2]{
-\begin{center}\begin{minipage}[t]{0.7\textwidth}\begin{center}
-\emph{#1}
-\end{center}
-\begin{flushright}
-\vspace{-1.2ex}
-- #2\hspace{2ex}~
-\end{flushright}
-\end{minipage}\end{center}
-}
-\nc\pquote{\pause\quote}
-
 \frame{\titlepage}
-
-
 \partframe{What is FRP?}
 
 \framet{FRP's two fundamental properties}{
-\begin{itemize}\itemsep2ex
-  \item \emph{Continuous} time.
-  (Natural \& composable.)
+\begin{itemize}\itemsep3ex
 \item Precise, simple denotation.
   (Elegant \& rigorous.)
+  \item \emph{Continuous} time.
+  (Natural \& composable.)
 \end{itemize}
-{\parskip 3ex
-
 \pause
+{
+\parskip 3ex
+\vspace{4ex}
 
 Deterministic, continuous ``concurrency''.
 
-Warning: most modern ``FRP'' systems have neither property.
+\pause\vspace{4ex}
+
+Warning: most modern ``FRP'' systems have neither property. {\Large \dSadey}
 
 % More aptly, \emph{``Denotative continuous-time programming''} (DCTP).
+% \vspace{4.3ex}
+\ 
 }
+}
+
+\framet{FRP's two fundamental properties}{
+\begin{itemize}\itemsep3ex
+\item Precise, simple denotation.
+  (Elegant \& rigorous.)
+  \item \emph{Continuous} time.
+  (Natural \& composable.)
+\end{itemize}
+%\pause
+
+\vspace{2.5ex}
+
+FRP \emph{is not} about:
+\pause
+\begin{itemize}\itemsep1.2ex
+\item graphs,
+\item updates and propagation,
+\item streams,
+\item doing % (operational)
+\end{itemize}
+
+}
+
+\framet{Why (precise \& simple) denotation?}{
+\pause
+\begin{itemize}\itemsep2ex
+\item
+  Separates specification from implementation.
+  % Defines intent, independent of implementation and without handwaving.
+\item \emph{Simple} so that we \emph{can} reach conclusions.
+\item \emph{Precise} so that our conclusions will be \emph{true}.
+\item Denotations have elegant, functional-friendly style.
+\end{itemize}
+
+\pause\hspace{2ex}
+
+An API is a language for communicating about a domain.
+
+It helps to (really) understand what we're talking about.
+
+%% \quote{The single biggest problem with communication is the illusion that it has occurred.}{George Bernard Shaw}
+
 }
 
 \framet{Why continuous \& infinite (vs discrete/finite) time?}{
 \pause
+Same benefits as for space (vector graphics):
+%\\ \hspace{6ex} \ldots and for pure, non-strict functional programming.
+\pause
 \begin{itemize}\itemsep0.3ex
-\item Transformation flexibility with simple \& precise semantics
-\item Quality/accuracy
-\item Efficiency (adapative)
-\item Modularity/composability:
+\item Transformation flexibility with simple \& precise semantics.
+\item Modularity/reusability/composability:
   \begin{itemize}
   \item Fewer assumptions, more uses (resolution-independence).
   \item More info available for extraction.
-  \item Same benefits as pure, non-strict functional programming.\\
-        See \href{http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html}{\emph{Why Functional Programming Matters}}.
   \end{itemize}
 \item Integration and differentiation: natural, accurate, efficient.
+% \item Simplicity: eliminate non-essential details.
+\pause
+\item Quality/accuracy.
+\item Efficiency (adapative).
 \item Reconcile differing input sampling rates.
 \end{itemize}
-
-\vspace{-1ex}
-
 \pause
-Same issues as for space, hence vector graphics.
+% \fbox{\emph{Principle:} Approximations/prunings compose badly, so postpone.}
+\vspace{1ex}
+{\color{blue}
+\fbox{\normalcolor\emph{Principle:} Approximations/prunings compose badly, so postpone.}
+}
 
-\pause
-\emph{Principle:} Approximations/prunings compose badly, so postpone.
-
-%% \item Strengthen induction hypothesis
+See \href{http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html}{\emph{Why~Functional~Programming~Matters}}.
 }
 
 \framet{Semantics}{
@@ -159,11 +192,11 @@ Precise \& simple semantics:
 where |T = R| (reals).
 \pause\\[4ex]
 
-Much of API and its specification follows from this one choice.
-
+Much of API and its specification can follow from this one choice.
+%% \\Described in the \emph{Denotational Design} teaser.
 }
 
-\partframe{Original formulation}
+\partframe{Original formulation}
 
 \framet{API}{
 
@@ -225,9 +258,11 @@ Reactivity later.
 > once       :: T -> a -> Event a
 > (.|.)      :: Event a -> Event a -> Event a
 > (==>)      :: Event a -> (a -> b) -> Event b
-> predicate  :: Behavior Bool -> T -> Event ()
+> predicate  :: Behavior Bool -> Event ()
 > snapshot   :: Event a -> Behavior b -> Event (a,b)
 
+\\[2ex]
+\emph{Exercise:} define semantics of these operations.
 }
 
 \framet{Reactivity}{
@@ -241,21 +276,247 @@ Reactivity later.
 \pause
 Semantics:
 
-> meaning (b0 `switcher` e) t = meaning (last (b0 : before (meaning e) t)) t
+> meaning (b0 `switcher` e) t = meaning (last (b0 : before t (meaning e))) t
 > SPACE
-> before :: [(T,a)] -> T -> [a]
-> before os t  = [a | (ta,a) <- os, ta < t]
+> before :: T -> [(T,a)] -> [a]
+> before t os  = [a | (ta,a) <- os, ta < t]
 
-\pause \\
+Important: |ta < t|, rather than |ta <= t|.
+
 \out{
+\pause \\
 Event occurrences \emph{cannot} be extracted.
 (No |changes|/|updates|.)
 }
-Question: Can occurrences be extracted (``|changes|'')?
+% \pause \\ Question: Can occurrences be extracted (``|changes|'')?
+}
+
+\partframe{Modernized formulation \\[3ex] (teaser)}
+
+\framet{API}{
+
+Replace operations with standard abstractions where possible:
+
+> instance Functor Behavior where ...
+> instance Applicative Behavior where ...
+> instance Monoid a => Monoid (Behavior a) where ...
+> SPACE
+> instance Functor Event where ...
+> instance Monoid a => Monoid (Event a) where ...
+
+Why?\pause
+\begin{itemize}\itemsep1.5ex
+\item Less learning, more leverage.
+\item Specifications and laws for free.
+\end{itemize}
 
 }
 
-\partframe{Modernized formulation}
+\setlength{\fboxsep}{-1.7ex}
+
+\framet{Specifications for free}{
+
+The \emph{instance's meaning} follows the \emph{meaning's instance}:
+\begin{center}
+\fbox{\begin{minipage}[c]{0.55\textwidth}
+
+> meaning (fmap f as)  == fmap f (meaning as)
+> SPACE
+> meaning (pure a)     == pure a
+> meaning (fs <*> xs)  == meaning fs <*> meaning xs
+> SPACE
+> mu mempty            == mempty
+> mu (top <> bot)      == mu top <> mu bot
+
+\end{minipage}}
+\end{center}
+% So |meaning| is a homomorphism (distributes over class operations).
+\pause
+%Notes:
+\begin{itemize}
+\item Corresponds exactly to the original FRP denotation.
+\item Follows inevitably from a domain-independent principle.
+\item Laws hold for free\out{ (already paid for)}.
+%\item Details tomorrow.
+\end{itemize}
+}
+
+\partframe{History}
+
+\framet{1983--1989 at CMU}{
+
+\begin{itemize}\itemsep2ex
+\item
+  I went for graphics.
+\item
+  Did program transformation, FP, type theory.
+\item
+  Class in denotational semantics.
+\end{itemize}
+
+}
+
+\framet{1989 at CMU}{
+
+\begin{itemize}\itemsep2ex
+\item
+  {\parskip1ex
+  Kavi Arya's visit:
+  \begin{itemize}\parskip1ex
+   \item \emph{Functional animation}
+   \item Streams of pictures
+   \item Elegant\pause, mostly
+  \end{itemize}
+  }
+\item John Reynolds's insight\pause: continuous time.
+  Roughly,\\[1.5ex]
+{
+ \parindent2ex
+ \small
+``You can think of streams as functions from the natural numbers.\\
+\pause Have you thought about functions from the \emph{reals} instead?\\
+Doing so might help with the awkwardness of interpolation.''
+}
+\pitem
+  I finished my dissertation anyway.
+\end{itemize}
+
+}
+
+\framet{1990--93 at Sun: \href{http://conal.net/tbag/}{TBAG}}{
+
+\begin{itemize}\itemsep1.2ex
+\item 3D geometry etc as first-class immutable values.
+\item Animation as immutable functions of continuous time.
+\pause
+\item Multi-way constraints on time-functions.
+      \\Off-the-shelf constraint solvers (DeltaBlue \& SkyBlue from UW).
+\item Differentiation, integration and ODEs specified via |derivative|.
+      \\Adaptive Runge-Kutta-5 solver (fast \& accurate).
+\item Reactivity via \texttt{assert}/\texttt{retract} (high-level but imperative).
+\pause
+\item Optimizing compiler via partial evaluation.
+\item In Common Lisp, C++, Scheme.
+\item Efficient multi-user distributed execution for free.
+\end{itemize}
+
+}
+
+\framet{1994--1996 at MSR: RBML/ActiveVRML}{
+
+\begin{itemize}\itemsep2ex
+\item Programming model \& fast implementation for new 3D hardware.
+\item TBAG + denotative/functional reactivity.
+\pause
+\item Add event algebra to behavior algebra.
+\item Reactivity via behavior-valued events.
+\item Drop multi-way constraints ``at first''.
+\pause
+\item Started in ML as ``RBML''.
+\item Rebranded to
+ ``\href{http://conal.net/papers/ActiveVRML/}{ActiveVRML}'', then
+ ``\href{http://www.sworks.com/keng/da.html}{DirectAnimation}''.
+\end{itemize}
+}
+
+\framet{1995--1999 at MSR: RBMH/Fran}{
+
+\begin{itemize}\itemsep2ex
+\item
+  Found Haskell: reborn as ``RBMH'' (research vehicle).
+\item
+  Very fast implementation \href{http://conal.net/papers/padl99/}{via sprite engine}.
+\item
+  John Hughes suggested using |Arrow|.
+\end{itemize}
+
+}
+
+\framet{2000 at MSR: \href{http://conal.net/papers/new-fran-draft.pdf}{first try} at push-based implementation}{
+
+\begin{itemize}\parskip2ex
+\item Algebra of imperative event listeners.
+\item Challenges:
+ \begin{itemize}\itemsep2ex
+  \item
+    Garbage collection \& dependency reversal.
+  \item
+    Determinacy of timing \& simultaneity.
+  \item
+    I doubt anyone has gotten correct.
+ \end{itemize}
+\end{itemize}
+
+}
+
+\framet{2009: \href{http://conal.net/papers/push-pull-frp/}{Push-pull FRP}}{
+
+\begin{itemize}\itemsep1.5ex
+\item Minimal computation, low latency, \emph{provably correct}.
+\item Push for reactivity and pull for continuous phases.
+\item ``Push'' is really blocked pull.
+\item
+  Modernized API:
+  \begin{itemize}
+  \item Standard abstractions.
+  \item Semantics as homomorphisms.
+  \item Laws for free.
+  \end{itemize}
+\item
+  Reactive normal form, via equational properties (denotation!).
+\item
+  Uses |lub| (basis of PL semantics).
+\item
+  Implementation subtleties \& GHC RTS bugs. Didn't quite work.
+\end{itemize}
+
+}
+
+\framet{1996--2014: Paul Hudak / Yale}{
+
+\begin{minipage}[c]{0.6\textwidth}
+\begin{itemize}\itemsep2ex
+\item Paul Hudak visited MSR in 1996 or so and saw RBMH.
+\item Encouraged publishing, and suggested collaboration.
+\item Proposed names ``Fran'' \& ``FRP''.
+\item Many FRP-based papers and theses.
+\end{itemize}
+\end{minipage}
+\begin{minipage}[c]{1.8in}
+\begin{center}
+\wpicture{1.7in}{paul-hudak}\\
+{\small July 15, 1952 -- April 29, 2015}
+\end{center}
+\end{minipage}
+}
+
+\out{
+
+\framet{2012--now: ``FRP'' diffusion}{
+
+\begin{itemize}
+\item ``FRP'' systems appear that lack both fundamental properties:
+  \begin{itemize}
+   \item Elm
+   \item Bacon
+  \end{itemize}
+\end{itemize}
+
+}
+}
+
+\partframe{Questions}
+
+\framet{}{
+\begin{center}
+\Large
+``But computers are discrete, ...''
+\end{center}
+}
+
+%\framet{}{}
+
+\partframe{A more elegant specification \\[1.5ex] for FRP}
 
 \framet{API}{
 
@@ -264,11 +525,16 @@ Replace several operations with standard abstractions:
 > instance Functor Behavior where ...
 > instance Applicative Behavior where ...
 > instance Monoid a => Monoid (Behavior a) where ...
-
+> SPACE
 > instance Functor Event where ...
 > instance Monoid a => Monoid (Event a) where ...
 
-Less learning, more leverage.
+Why?\pause
+\begin{itemize}
+\item Less learning, more leverage.
+\item Specifications and laws for free.
+
+\end{itemize}
 
 }
 
@@ -283,7 +549,7 @@ Less learning, more leverage.
 
 \ 
 
-The |Behavior| instances follow in ``precise analogy''.
+The |Behavior| instances follow in ``precise analogy'' to denotation.
 }
 
 \framet{Homomorphisms}{
@@ -371,8 +637,6 @@ For instance,
 >  ff <*> fx  = \ z -> (ff z) (fx z)
 
 }
-
-\setlength{\fboxsep}{-1.7ex}
 
 \framet{Semantic homomorphisms}{
 
@@ -497,8 +761,9 @@ Alternatively,
 \begin{itemize}\itemsep2ex
  \item Two fundamental properties:\\
    \begin{itemize}\itemsep1ex
+     \item Precise, simple denotation. (Elegant \& rigorous.)
      \item Continuous time. (Natural \& composable.)
-     \item Precise, simple denotation. (Elegant \& rigorous.)\\[1ex]
+     \\[1ex]
    \end{itemize}
 
    \emph{Warning:} most recent ``FRP'' systems lack both.
@@ -512,180 +777,6 @@ Alternatively,
      \item Generally useful principle for library design.
    \end{itemize}
 \end{itemize}
-}
-
-\partframe{History}
-
-\framet{1983--1989 at CMU}{
-
-\begin{itemize}\itemsep2ex
-\item
-  I went for graphics.
-\item
-  Did program transformation, FP, type theory.
-\item
-  Class in denotational semantics.
-\end{itemize}
-
-}
-
-\framet{1989 at CMU}{
-
-\begin{itemize}\itemsep2ex
-\item
-  Kavi Arya's visit
-  \begin{itemize}
-   \item \emph{Functional animation}
-   \item Streams of pictures
-   \item Mostly elegant
-  \end{itemize}
-\item John Reynolds' insight: continuous time.
-  Roughly,\\[1.5ex]
-{
- \parindent2ex
- \small
-``You can think of sequences as functions from the natural numbers.\\
-Have you thought about functions from the reals instead?\\
-Doing so might help with the awkwardness of interpolation.''
-}
-\item
-  Finished my dissertation anyway.
-\end{itemize}
-
-}
-
-\framet{1990--93 at Sun: TBAG}{
-
-\begin{itemize}\itemsep1.5ex
-\item
-  3D geometry etc as first-class immutable values.
-\item
-  Optimizing compiler via partial evaluation.
-\item
-  For animation \& interaction, immutable functions of time.
-\item
-  Multi-way constraints on time-functions.
-  % Off-the-shelf constraint solvers (DeltaBlue \& SkyBlue from UW).
-\item
-  Differentiation, integration and ODEs specified via |derivative|.
-  Adaptive Runge-Kutta-5 solver (fast \& accurate).
-\item
-  Efficient multi-user distributed execution for free.
-\item
-  Reactivity via \texttt{assert}/\texttt{retract} (high-level but imperative).
-\item
-  In Common Lisp, C++, Scheme.
-\end{itemize}
-
-}
-
-\framet{1994--1996 at MSR: RBML/ActiveVRML}{
-
-\begin{itemize}\itemsep2ex
-\item
-  Programming model \& fast implementation for new 3D hardware.
-\item
-  TBAG + denotative/functional reactivity.
-\item
-  Add event algebra to behavior algebra.
-\item
-  Reactivity via behavior-valued events.
-\item
-  Drop multi-way constraints ``at first''.
-\item
-  Started in ML as ``RBML''.
-\item
-  Rebranded to
-   ``\href{http://conal.net/papers/ActiveVRML/}{ActiveVRML}'', then
-   ``\href{http://www.sworks.com/keng/da.html}{DirectAnimation}''.
-\end{itemize}
-}
-
-\framet{1996--1999 at MSR: RBMH/Fran}{
-
-\begin{itemize}\itemsep2ex
-\item
-  Found Haskell: reborn as ``RBMH'' (research vehicle).
-\item
-  Very fast implementation \href{http://conal.net/papers/padl99/}{via sprite engine}.
-\item
-  John Hughes suggested using |Arrow|.
-\end{itemize}
-
-}
-
-\framet{2000 at MSR: first try at push-based implementation}{
-
-\begin{itemize}\parskip2ex
-\item Algebra of imperative event listeners.
-\item Challenges:
- \begin{itemize}\itemsep2ex
-  \item
-    Garbage collection \& dependency reversal.
-  \item
-    Determinacy of timing \& simultaneity.
-  \item
-    I doubt anyone has gotten correct.
- \end{itemize}
-\end{itemize}
-
-}
-
-\framet{2009: \href{http://conal.net/papers/push-pull-frp/}{Push-pull FRP}}{
-
-\begin{itemize}\itemsep1.5ex
-\item Minimal computation, low latency, \emph{provably correct}.
-\item Push for reactivity and pull for continuous phases.
-\item ``Push'' is really blocked pull.
-\item
-  Modernized API:
-  \begin{itemize}
-  \item Standard abstractions.
-  \item Semantics as homomorphisms.
-  \item Laws for free.
-  \end{itemize}
-\item
-  Reactive normal form, via equational properties (denotation!).
-\item
-  Uses |lub| (basis of PL semantics).
-\item
-  Implementation subtleties \& GHC RTS bugs. Didn't quite work.
-\end{itemize}
-
-}
-
-\framet{1997--2014: Paul Hudak / Yale}{
-
-\begin{minipage}[c]{0.6\textwidth}
-\begin{itemize}\itemsep2ex
-\item Paul Hudak visited MSR in 1996 or so and saw RBMH.
-\item Encouraged me to publish and suggested collaboration.
-\item Proposed names ``Fran'' \& ``FRP''.
-\item Many FRP-based papers and theses, drawing much attention.
-\end{itemize}
-\end{minipage}
-\begin{minipage}[c]{1.8in}
-\begin{center}
-\wpicture{1.7in}{paul-hudak}\\
-{\small July 15, 1952 -- April 29, 2015}
-\end{center}
-\end{minipage}
-}
-
-\out{
-
-\framet{2012--now: ``FRP'' diffusion}{
-
-\begin{itemize}
-\item ``FRP'' systems appear that lack both fundamental properties:
-  \begin{itemize}
-   \item Elm
-   \item Bacon
-  \end{itemize}
-\end{itemize}
-
-}
-
 }
 
 \end{document}
