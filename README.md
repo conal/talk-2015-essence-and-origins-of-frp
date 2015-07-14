@@ -1,10 +1,9 @@
 ## The essence and origins of FRP
 
-A keynote talk for [LambdaJam](lambdajam.com) 2015 (July 15--16).
-Previewed at [BayHac](http://bayhac.org/) 2015 (June 12--14).
+Versions:
 
-You can find [the slides (PDF)](http://conal.net/talks/essence-and-origins-of-frp-bayhac-2015.pdf) in [my talks folder](http://conal.net/talks/).
-
+*   [BayHac](http://bayhac.org/) 2015 (June 12--14) preview: [slides](http://conal.net/talks/essence-and-origins-of-frp-bayhac-2015.pdf).
+*   [LambdaJam](lambdajam.com) 2015 (July 15--16) keynote: [slides](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf).
 
 ### Abstract
 
