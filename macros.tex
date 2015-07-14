@@ -127,3 +127,21 @@
 \nc\hidden[1]{}
 
 \nc\Back{\!\!\!\!\!\!}
+
+
+\nc\pitem{\pause \item}
+
+\nc\partframe[1]{\framet{}{\begin{center} \vspace{6ex} {\Huge \textcolor{partColor}{#1}} \end{center}}}
+%\nc\partframe[1]{\framet{}{\begin{center} \huge \emph{\textcolor{blue}{#1}} \end{center}}}
+
+\rnc\quote[2]{
+\begin{center}\begin{minipage}[t]{0.7\textwidth}\begin{center}
+\emph{#1}
+\end{center}
+\begin{flushright}
+\vspace{-1.2ex}
+- #2\hspace{2ex}~
+\end{flushright}
+\end{minipage}\end{center}
+}
+\nc\pquote{\pause\quote}
