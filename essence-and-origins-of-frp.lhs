@@ -368,8 +368,7 @@ The \emph{instance's meaning} follows the \emph{meaning's instance}:
    \item Elegant\pause, mostly
   \end{itemize}
   }
-\item John Reynolds's insight\pause: continuous time.
-  Roughly,\\[1.5ex]
+\item John Reynolds's insightful remark:\\[1.5ex]
 {
  \parindent2ex
  \small
@@ -377,6 +376,7 @@ The \emph{instance's meaning} follows the \emph{meaning's instance}:
 \pause Have you thought about functions from the \emph{reals} instead?\\
 Doing so might help with the awkwardness of interpolation.''
 }
+\\[1.5ex] \emph{Continuous time!}
 \pitem
   I finished my dissertation anyway.
 \end{itemize}
@@ -402,7 +402,7 @@ Doing so might help with the awkwardness of interpolation.''
 
 }
 
-\framet{1994--1996 at MSR: RBML/ActiveVRML}{
+\framet{1994--1996 at Microsoft Research: RBML/ActiveVRML}{
 
 \begin{itemize}\itemsep2ex
 \item Programming model \& fast implementation for new 3D hardware.
@@ -432,7 +432,7 @@ Doing so might help with the awkwardness of interpolation.''
 
 }
 
-\framet{2000 at MSR: \href{http://conal.net/papers/new-fran-draft.pdf}{first try} at push-based implementation}{
+\framet{1999 at MSR: \href{http://conal.net/papers/new-fran-draft.pdf}{first try} at push-based implementation}{
 
 \begin{itemize}\parskip2ex
 \item Algebra of imperative event listeners.
@@ -456,7 +456,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item Push for reactivity and pull for continuous phases.
 \item ``Push'' is really blocked pull.
 \item
-  Modernized API:
+  More elegant API:
   \begin{itemize}
   \item Standard abstractions.
   \item Semantics as homomorphisms.
@@ -479,7 +479,7 @@ Doing so might help with the awkwardness of interpolation.''
 \item Paul Hudak visited MSR in 1996 or so and saw RBMH.
 \item Encouraged publishing, and suggested collaboration.
 \item Proposed names ``Fran'' \& ``FRP''.
-\item Many FRP-based papers and theses.
+\item \emph{Many} FRP-based papers and theses.
 \end{itemize}
 \end{minipage}
 \begin{minipage}[c]{1.8in}
