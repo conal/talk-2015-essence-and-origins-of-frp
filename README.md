@@ -7,7 +7,7 @@ Versions:
     *   [video](http://begriffs.com/posts/2015-07-22-essence-of-frp.html)
 *   [LambdaJam](lambdajam.com) 2015 (July 15--16) keynote:
     *   [slides](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)
-    *   [*A more elegant specification for FRP*](https://github.com/conal/talk-2015-more-elegant-frp), which had been a part of the essence-and-origins talk in the BayHac version
+    *   [*A more elegant specification for FRP*](https://github.com/conal/talk-2015-more-elegant-frp), previously part of the essence-and-origins talk
 
 ### Abstract
 
