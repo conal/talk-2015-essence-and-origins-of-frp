@@ -33,3 +33,11 @@ For the same reason, these systems cannot express behaviors as integrals or deri
 In this talk, I'll share with you the essence of the original (denotative and continuous) FRP.
 You'll see the thought processes that led to its design, including the care I took to keep the specification both precise and simple, and hopefully, you'll get a sense of why you might care.
 As a more in-depth follow-up, the "Denotational Design" workshop explores how to use denotations to design libraries in general.
+
+### Also related
+
+*   My FRP summaries on StackOverflow:
+    *   [What is (functional) reactive programming?](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
+    *   [Specification for a Functional Reactive Programming language](http://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#5878525)
+    *   [The difference between Reactive and Functional-Reactive programming](http://stackoverflow.com/questions/5385377/the-difference-between-reactive-and-functional-reactive-programming/5386908#5386908)
+*   [The Haskell Cast Episode 9 - Conal Elliott on FRP and Denotational Design](https://www.haskellcast.com/episode/009-conal-elliott-on-frp-and-denotational-design).
