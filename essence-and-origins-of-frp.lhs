@@ -365,7 +365,7 @@ The \emph{instance's meaning} follows the \emph{meaning's instance}:
   \begin{itemize}\parskip1ex
    \item \emph{Functional animation}
    \item Streams of pictures
-   \item Elegant\pause, mostly
+   \item Elegant, mostly\pause
   \end{itemize}
   }
 \item John Reynolds's insightful remark:\\[1.5ex]
